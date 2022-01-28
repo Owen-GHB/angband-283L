@@ -51,11 +51,13 @@
 
 #ifdef USE_GCU
 
-
 /*
- * Hack -- play games with "bool"
+ * Hack -- play games with "bool" and "term"
  */
 #undef bool
+
+/* Avoid 'struct term' name conflict with <curses.h> (via <term.h>) on AIX */
+#define term System_term
 
 /*
  * Include the proper "header" file
@@ -66,7 +68,7 @@
 # include <curses.h>
 #endif
 
-
+#undef term
 
 /*
  * Hack -- try to guess which systems use what commands
@@ -500,7 +502,11 @@ static errr Term_xtra_gcu_alive(int v)
 }
 
 
-
+#ifdef USE_NCURSES
+const char help_gcu[] = "NCurses, for terminal console";
+#else /* USE_NCURSES */
+const char help_gcu[] = "Curses, for terminal console";
+#endif /* USE_NCURSES */
 
 /*
  * Init the "curses" system
@@ -767,6 +773,11 @@ static errr Term_xtra_gcu(int n, int v)
 		case TERM_XTRA_DELAY:
 		usleep(1000 * v);
 		return (0);
+		
+		/* React to events */
+		case TERM_XTRA_REACT:
+		Term_xtra_gcu_react();
+		return (0);
 	}
 
 	/* Unknown */
@@ -910,22 +921,7 @@ errr init_gcu(int argc, char *argv[])
 		/* XXX XXX XXX Take account of "gamma correction" */
 
 		/* Prepare the "Angband Colors" */
-		init_color(0,     0,    0,    0);	/* Black */
-		init_color(1,  1000, 1000, 1000);	/* White */
-		init_color(2,   500,  500,  500);	/* Grey */
-		init_color(3,  1000,  500,    0);	/* Orange */
-		init_color(4,   750,    0,    0);	/* Red */
-		init_color(5,     0,  500,  250);	/* Green */
-		init_color(6,     0,    0, 1000);	/* Blue */
-		init_color(7,   500,  250,    0);	/* Brown */
-		init_color(8,   250,  250,  250);	/* Dark-grey */
-		init_color(9,   750,  750,  750);	/* Light-grey */
-		init_color(10, 1000,    0, 1000);	/* Purple */
-		init_color(11, 1000, 1000,    0);	/* Yellow */
-		init_color(12, 1000,    0,    0);	/* Light Red */
-		init_color(13,    0, 1000,    0);	/* Light Green */
-		init_color(14,    0, 1000, 1000);	/* Light Blue */
-		init_color(15,  750,  500,  250);	/* Light Brown */
+		Term_xtra_gcu_react();
 	}
 
 	/* Attempt to use colors */
