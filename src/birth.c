@@ -1542,7 +1542,7 @@ static bool player_birth_aux()
 			display_player(0);
 
 			/* Prepare a prompt (must squeeze everything in) */
-			Term_gotoxy(2, 23);
+			Term_gotoxy(2, Term->hgt-1);
 			Term_addch(TERM_WHITE, b1);
 			Term_addstr(-1, TERM_WHITE, "'r' to reroll");
 			if (prev) Term_addstr(-1, TERM_WHITE, ", 'p' for prev");
@@ -1605,7 +1605,7 @@ static bool player_birth_aux()
 	display_player(0);
 
 	/* Prompt for it */
-	prt("['Q' to suicide, 'S' to start over, or ESC to continue]", 23, 10);
+	prt("['Q' to suicide, 'S' to start over, or ESC to continue]", Term->hgt-1, 10);
 
 	/* Get a key */
 	c = inkey();

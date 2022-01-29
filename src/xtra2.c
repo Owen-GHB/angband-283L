@@ -2273,7 +2273,7 @@ void verify_panel(void)
 	}
 
 	/* Hack -- handle town */
-	if (!p_ptr->depth) i = SCREEN_HGT;
+	if (!p_ptr->depth) i = (DUNGEON_HGT - SCREEN_HGT) / 2;
 
 	/* New panel row */
 	if (p_ptr->wy != i)
@@ -2298,7 +2298,7 @@ void verify_panel(void)
 	}
 
 	/* Hack -- handle town */
-	if (!p_ptr->depth) i = SCREEN_WID;
+	if (!p_ptr->depth) i = (DUNGEON_WID - SCREEN_WID) / 2;
 
 	/* New panel col */
 	if (p_ptr->wx != i)

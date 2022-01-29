@@ -38,6 +38,7 @@
 
 #ifdef USE_X11
 
+#include "main.h"
 
 #include "z-util.h"
 #include "z-virt.h"

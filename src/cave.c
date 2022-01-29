@@ -1378,6 +1378,7 @@ void display_map(int *cy, int *cx)
 void do_cmd_view_map(void)
 {
 	int cy, cx;
+	cptr prompt = "Hit any key to continue";
 
 	/* Save screen */
 	screen_save();
@@ -1394,11 +1395,11 @@ void do_cmd_view_map(void)
 	/* Display the map */
 	display_map(&cy, &cx);
 
-	/* Wait for it */
-	put_str("Hit any key to continue", 23, 23);
+	/* Show the prompt */
+	put_str(prompt, Term->hgt - 1, Term->wid / 2 - strlen(prompt) / 2);
 
 	/* Hilite the player */
-	move_cursor(cy, cx);
+	Term_gotoxy(cx, cy);
 
 	/* Get any key */
 	(void)inkey();

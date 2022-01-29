@@ -3156,8 +3156,8 @@ static void build_store(int n, int yy, int xx)
 {
 	int y, x, y0, x0, y1, x1, y2, x2, tmp;
 
-	int qy = SCREEN_HGT;
-	int qx = SCREEN_WID;
+	int qy = TOWN_HGT;
+	int qx = TOWN_WID;
 
 
 	/* Find the "center" of the store */
@@ -3247,8 +3247,8 @@ static void town_gen_hack(void)
 {
 	int y, x, k, n;
 
-	int qy = SCREEN_HGT;
-	int qx = SCREEN_WID;
+	int qy = TOWN_HGT;
+	int qx = TOWN_WID;
 
 	int rooms[MAX_STORES];
 
@@ -3285,8 +3285,8 @@ static void town_gen_hack(void)
 	while (TRUE)
 	{
 		/* Pick a location at least "three" from the outer walls */
-		y = qy + rand_range(3, SCREEN_HGT - 4);
-		x = qx + rand_range(3, SCREEN_WID - 4);
+		y = qy + rand_range(3, TOWN_HGT - 4);
+		x = qx + rand_range(3, TOWN_WID - 4);
 
 		/* Require a "naked" floor grid */
 		if (cave_naked_bold(y, x)) break;
@@ -3329,8 +3329,8 @@ static void town_gen(void)
 
 	int residents;
 
-	int qy = SCREEN_HGT;
-	int qx = SCREEN_WID;
+	int qy = TOWN_HGT;
+	int qx = TOWN_WID;
 
 	bool daytime;
 
@@ -3366,9 +3366,9 @@ static void town_gen(void)
 	}
 
 	/* Then place some floors */
-	for (y = qy+1; y < qy+SCREEN_HGT-1; y++)
+	for (y = qy+1; y < qy+TOWN_HGT-1; y++)
 	{
-		for (x = qx+1; x < qx+SCREEN_WID-1; x++)
+		for (x = qx+1; x < qx+TOWN_WID-1; x++)
 		{
 			/* Create empty floor */
 			cave_set_feat(y, x, FEAT_FLOOR);

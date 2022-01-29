@@ -81,34 +81,39 @@
  */
 #define PANEL_WID	33
 
+#define ROW_MAP 1
+#define COL_MAP 13
 
 /*
  * Number of grids in each screen (vertically)
- * Must be a multiple of PANEL_HGT (at least 2x)
  */
-#define SCREEN_HGT	22
+#define SCREEN_HGT	(Term->hgt - ROW_MAP -1)
 
 /*
  * Number of grids in each screen (horizontally)
- * Must be a multiple of PANEL_WID (at least 2x)
  */
-#define SCREEN_WID	66
+#define SCREEN_WID	(Term->wid - COL_MAP -1)
 
 
 /*
  * Number of grids in each dungeon (horizontally)
- * Must be a multiple of SCREEN_HGT
  * Must be less or equal to 256
  */
 #define DUNGEON_HGT		66
 
 /*
  * Number of grids in each dungeon (vertically)
- * Must be a multiple of SCREEN_WID
  * Must be less or equal to 256
  */
 #define DUNGEON_WID		198
 
+#define TOWN_WID 66
+#define TOWN_HGT 22
+
+/*
+ * Maximum amount of Angband windows.
+ */
+#define ANGBAND_TERM_MAX 8
 
 /*
  * Total number of stores (see "store.c", etc)
@@ -476,35 +481,32 @@
 #define ROW_STUN		22
 #define COL_STUN		0	/* <stun> */
 
-#define ROW_HUNGRY		23
+#define ROW_HUNGRY		(Term->hgt-1)
 #define COL_HUNGRY		0	/* "Weak" / "Hungry" / "Full" / "Gorged" */
 
-#define ROW_BLIND		23
+#define ROW_BLIND		(Term->hgt-1)
 #define COL_BLIND		7	/* "Blind" */
 
-#define ROW_CONFUSED	23
+#define ROW_CONFUSED	(Term->hgt-1)
 #define COL_CONFUSED	13	/* "Confused" */
 
-#define ROW_AFRAID		23
+#define ROW_AFRAID		(Term->hgt-1)
 #define COL_AFRAID		22	/* "Afraid" */
 
-#define ROW_POISONED	23
+#define ROW_POISONED	(Term->hgt-1)
 #define COL_POISONED	29	/* "Poisoned" */
 
-#define ROW_STATE		23
+#define ROW_STATE		(Term->hgt-1)
 #define COL_STATE		38	/* <state> */
 
-#define ROW_SPEED		23
+#define ROW_SPEED		(Term->hgt-1)
 #define COL_SPEED		49	/* "Slow (-NN)" or "Fast (+NN)" */
 
-#define ROW_STUDY		23
+#define ROW_STUDY		(Term->hgt-1)
 #define COL_STUDY		64	/* "Study" */
 
-#define ROW_DEPTH		23
-#define COL_DEPTH		70	/* "Lev NNN" / "NNNN ft" */
-
-#define ROW_MAP			1
-#define COL_MAP			13
+#define ROW_DEPTH		(Term->hgt-1)
+#define COL_DEPTH		(Term->wid-10)	/* "Lev NNN" / "NNNN ft" */
 
 
 /*** General index values ***/
@@ -2721,3 +2723,7 @@ extern int PlayerUID;
 #endif
 
 
+/*
+ * Given an array, determine how many elements are in the array.
+ */
+#define N_ELEMENTS(a) (sizeof(a) / sizeof((a)[0]))

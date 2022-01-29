@@ -48,8 +48,9 @@
 
 #include "angband.h"
 
-
 #ifdef USE_GCU
+
+#include "main.h"
 
 /*
  * Hack -- play games with "bool" and "term"
@@ -867,7 +868,7 @@ static errr Term_text_gcu(int x, int y, int n, byte a, cptr s)
  *
  * Someone should really check the semantics of "initscr()"
  */
-errr init_gcu(int argc, char *argv[])
+errr init_gcu(int argc, char **argv)
 {
 	int i;
 
